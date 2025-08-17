@@ -1,0 +1,32 @@
+digraph CRM_Facade {
+    rankdir=LR;
+    node [shape=record, fontname=Helvetica];
+
+    Cliente [label="{Cliente (Main)|+ main(args:String[])}", style=filled, fillcolor="#FFF3CD", color="#D6A700"];
+    Fachada [label="{Fachada CRM (CRMFacade)|+ cadastrarLead()\l+ qualificarLead()\l+ converterLead()\l+ registrarInteracao()\l+ criarOportunidade()\l+ fecharVenda()\l}", style=filled, fillcolor="#DDEEFF", color="#3A75C4"];
+
+    Validacao [label="{Serviço de Validação (ValidationService)|+ validarLead()}", style=filled, fillcolor="#EEEEEE", color="#666666"];
+    Pontuacao [label="{Serviço de Pontuação (ScoreService)|+ calcularScore()}", style=filled, fillcolor="#EEEEEE", color="#666666"];
+    Leads [label="{Serviço de Leads (LeadService)|+ salvarLead()\l+ buscar()\l+ remover()\l}", style=filled, fillcolor="#EEEEEE", color="#666666"];
+    Clientes [label="{Serviço de Clientes (CustomerService)|+ criarCliente()\l+ buscar()\l}", style=filled, fillcolor="#EEEEEE", color="#666666"];
+    Oportunidades [label="{Serviço de Oportunidades (OpportunityService)|+ criar()\l+ fechar()\l}", style=filled, fillcolor="#EEEEEE", color="#666666"];
+    Comunicacao [label="{Serviço de Comunicação (CommunicationService)|+ enviarEmail()\l+ enviarSms()\l}", style=filled, fillcolor="#EEEEEE", color="#666666"];
+    Auditoria [label="{Serviço de Auditoria (AuditService)|+ registrar()}", style=filled, fillcolor="#EEEEEE", color="#666666"];
+
+    LeadDTO [label="{Lead (LeadDTO)|nome\lemail\ltelefone\l}", style=filled, fillcolor="#E7F6E7", color="#3C8D40"];
+    ClienteDTO [label="{Cliente (ClienteDTO)|id\lnome\lemail\l}", style=filled, fillcolor="#E7F6E7", color="#3C8D40"];
+    OportunidadeDTO [label="{Oportunidade (OportunidadeDTO)|id\lclienteId\ldescricao\lvalor\l}", style=filled, fillcolor="#E7F6E7", color="#3C8D40"];
+
+    Cliente -> Fachada [label="usa"];
+    Fachada -> Validacao;
+    Fachada -> Pontuacao;
+    Fachada -> Leads;
+    Fachada -> Clientes;
+    Fachada -> Oportunidades;
+    Fachada -> Comunicacao;
+    Fachada -> Auditoria;
+
+    Leads -> LeadDTO [style=dashed, arrowhead=vee];
+    Clientes -> ClienteDTO [style=dashed, arrowhead=vee];
+    Oportunidades -> OportunidadeDTO [style=dashed, arrowhead=vee];
+}
